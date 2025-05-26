@@ -21,3 +21,8 @@ def read_upcoming_games():
 @app.post("/predict")
 def make_prediction(input: PredictionInput):
     return submit_prediction(input)
+
+
+@app.get("/games/{sport_key}")
+def get_games_by_sport(sport_key: str):
+    return get_upcoming_games(sport_key)
