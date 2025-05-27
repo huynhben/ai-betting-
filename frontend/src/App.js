@@ -18,10 +18,10 @@ function App() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        team_1: selectedGame.team_1,
-        team_2: selectedGame.team_2,
-        date: selectedGame.date,
-        features: {}, // TODO: add real input
+        team_id_home: selectedGame.team_id_1,
+        pts_home: selectedGame.odds?.[selectedGame.team_1] ?? 100,
+        team_id_away: selectedGame.team_id_2,
+        pts_away: selectedGame.odds?.[selectedGame.team_2] ?? 100,
       }),
     })
       .then((res) => res.json())
