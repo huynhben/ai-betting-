@@ -1,7 +1,19 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, Float, String
+from database import Base
 
-class PredictionInput(BaseModel):
-    team_1: str
-    team_2: str
-    date: str
-    features: dict
+class Game(Base):
+    __tablename__ = "games"
+
+    id = Column(Integer, primary_key=True, index=True)
+    game_date = Column(String)
+    team_1 = Column(String)
+    team_2 = Column(String)
+    fg_pct_home = Column(Float)
+    reb_home = Column(Integer)
+    ast_home = Column(Integer)
+    fg_pct_away = Column(Float)
+    reb_away = Column(Integer)
+    ast_away = Column(Integer)
+    pts_home = Column(Integer)
+    pts_away = Column(Integer)
+    winner = Column(Integer)
