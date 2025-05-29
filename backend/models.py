@@ -17,3 +17,16 @@ class Game(Base):
     pts_home = Column(Integer)
     pts_away = Column(Integer)
     winner = Column(Integer)
+
+
+from pydantic import BaseModel
+
+class PredictionInput(BaseModel):
+    # Example fields
+    home_team: str
+    away_team: str
+    date: str
+    home_pts: int
+    away_pts: int
+    # Add more as needed
+

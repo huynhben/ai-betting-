@@ -1,9 +1,11 @@
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from models import PredictionInput
 from crud import get_upcoming_games, submit_prediction
 from pydantic import BaseModel
 from ml_model import predict_winner
+from fastapi import FastAPI, Request, Body
+from chatgpt_api import get_chatgpt_analysis
+
 app = FastAPI()
 
 # CORS middleware
@@ -40,3 +42,18 @@ def make_prediction(input: PredictionInput):
 @app.get("/games/{sport_key}")
 def get_games_by_sport(sport_key: str):
     return get_upcoming_games(sport_key)
+
+@app.post("/analyze-bet/")
+async def analyze_bet(request: Request):
+    data = await request.json()
+    prompt = data.get("prompt", "")
+
+    if not prompt:
+        return {"error": "Prompt is missing."}
+
+    try:
+        analysis = get_chatgpt_analysis(prompt)
+        return {"analysis": analysis}
+    except Exception as e:
+        return {"error": str(e)}
+

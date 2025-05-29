@@ -12,18 +12,34 @@ def get_upcoming_games(sport_key: str):
                 "date": event["commence_time"]
             }
 
-            # Add odds from bookmakers if available
+            odds = {}
+            spreads = {}
+
             if event.get("bookmakers"):
-                outcomes = event["bookmakers"][0]["markets"][0]["outcomes"]
-                odds = {outcome["name"]: outcome["price"] for outcome in outcomes}
-                game["odds"] = odds
+                # Use the first bookmaker
+                markets = event["bookmakers"][0].get("markets", [])
+
+                for market in markets:
+                    if market["key"] == "h2h":
+                        for outcome in market["outcomes"]:
+                            odds[outcome["name"]] = outcome["price"]
+
+                    elif market["key"] == "spreads":
+                        for outcome in market["outcomes"]:
+                            spreads[outcome["name"]] = {
+                                "point": outcome.get("point"),
+                                "price": outcome.get("price")
+                            }
+
+                if odds:
+                    game["odds"] = odds
+                if spreads:
+                    game["spreads"] = spreads
 
             games.append(game)
 
     return games
 
-
-from ml_model import predict_winner
 
 from ml_model import predict_winner
 
