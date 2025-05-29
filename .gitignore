@@ -8,7 +8,7 @@
 .config.py
 # testing
 /coverage
-
+/Users/huynhben/ai-betting-app/backend/.env
 # production
 /build
 
