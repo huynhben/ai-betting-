@@ -5,6 +5,7 @@ from pymongo.errors import DuplicateKeyError, ConnectionFailure
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 import logging
+import os
 import json
 from dataclasses import asdict
 
@@ -14,7 +15,7 @@ from espn_api import FinalSportsRadarAPI, TeamData, GameData, SportType
 logger = logging.getLogger(__name__)
 
 # Your Atlas connection URI
-ATLAS_URI = "mongodb+srv://benhuynh46:Unkjk123$@oddsgpt.ncm2rf.mongodb.net/?retryWrites=true&w=majority&appName=oddsGPT"
+ATLAS_URI = os.getenv("ATLAS_URI")
 
 class SportsDataManager:
     """MongoDB manager for sports betting data - FOUR SPORTS (NFL, NBA, MLB, NHL)"""
