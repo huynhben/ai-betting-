@@ -23,4 +23,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 backend/*.json
-backend/espn_ml_training_data_*.json
+backend/espn_ml_training_data_20250604_184247.json
+backend/ml_training_data_20250603_220234.json
